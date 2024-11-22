@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SkillPilot: About</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="brand">SkillPilot</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('feedback') }}">Feedback</a></li>
+                <li><a href="{{ url_for('login') }}" onclick="openLoginPage()">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>About SkillPilot</h1>
+        <p>SkillPilot is designed to help job seekers optimize their resumes and find suitable job roles by analyzing their skills and providing actionable feedback.</p>
+        <p>Our system leverages natural language processing and machine learning to deliver precise and personalized career insights.</p>
+    </div>
+</body>
+</html>

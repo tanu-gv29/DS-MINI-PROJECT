@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SkillPilot: {{ "Skill Analysis" if type == "analyze" else "Job Recommendations" }}</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="brand">SkillPilot</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('feedback') }}">Feedback</a></li>
+                <li><a href="{{ url_for('login') }}" onclick="openLoginPage()">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>{{ "Skill Analysis Results" if type == "analyze" else "Job Recommendations" }}</h1>
+
+        <!-- Skill Analysis Section -->
+        {% if type == "analyze" %}
+            <div class="analysis-section">
+                <h2>Skill Analysis for Job Role: {{ result['job_role'] }}</h2>
+
+                <div class="skills-section">
+                    <h3>Matched Skills:</h3>
+                    {% if result['matched_skills'] %}
+                        <ul>
+                            {% for skill in result['matched_skills'] %}
+                                <li>{{ skill }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No matched skills found.</p>
+                    {% endif %}
+                </div>
+
+                <div class="skills-section">
+                    <h3>Missing Skills:</h3>
+                    {% if result['missing_skills'] %}
+                        <ul>
+                            {% for skill in result['missing_skills'] %}
+                                <li>{{ skill }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No missing skills found.</p>
+                    {% endif %}
+                </div>
+
+                <div class="visualization-section">
+                    <h3>Visualization:</h3>
+                    {% if result['plot_path'] %}
+                        <img src="{{ result['plot_path'] }}" alt="Skills Visualization" class="visualization">
+                    {% else %}
+                        <p>No visualization available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Job Recommendations Section -->
+        {% if type == "recommendations" %}
+            <div class="recommendations-section">
+                <h2>Top Job Role Recommendations</h2>
+                {% if result %}
+                    <ul>
+                        {% for role in result %}
+                            <li>{{ role.job_title }} (Similarity: {{ "%.2f"|format(role.similarity * 100) }}%)</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No recommendations available.</p>
+                {% endif %}
+
+                <div class="visualization-section">
+                    <h3>Visualization:</h3>
+                    {% if plot_path %}
+                        <img src="{{ plot_path }}" alt="Job Recommendations Visualization" class="visualization">
+                    {% else %}
+                        <p>No visualization available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <script src="static/script.js"></script>
+</body>
+</html>

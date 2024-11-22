@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillPilot: Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="brand">SkillPilot</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('feedback') }}">Feedback</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Login Form -->
+    <div class="login-container">
+        <h2>Login to SkillPilot</h2>
+        <form id="loginForm" method="POST" action="{{ url_for('login_user') }}">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#" onclick="showSignUpForm()">Sign Up</a></p>
+    </div>
+
+    <!-- Signup Form -->
+    <div class="signup-container" id="signupContainer" style="display: none;">
+        <h2>Sign Up for SkillPilot</h2>
+        <form id="signupForm" method="POST" action="{{ url_for('signup_user') }}">
+            <label for="signupEmail">Email:</label>
+            <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required>
+            
+            <label for="signupPassword">Password:</label>
+            <input type="password" id="signupPassword" name="password" placeholder="Create a password" required>
+            
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="#" onclick="showLoginForm()">Log In</a></p>
+    </div>
+
+    <script>
+        // Toggle between Login and Signup forms
+        function showSignUpForm() {
+            document.querySelector('.login-container').style.display = 'none';
+            document.querySelector('.signup-container').style.display = 'block';
+        }
+
+        function showLoginForm() {
+            document.querySelector('.signup-container').style.display = 'none';
+            document.querySelector('.login-container').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
